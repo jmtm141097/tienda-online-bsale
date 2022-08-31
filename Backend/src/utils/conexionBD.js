@@ -1,7 +1,7 @@
 import { Sequelize } from 'sequelize'
 
-const sequelize = new Sequelize('bsale_test', 'bsale_test', 'bsale_test', {
-    host: 'mdb-test.c6vunyturrl6.us-west-1.rds.amazonaws.com',
+const sequelize = new Sequelize(process.env.BD, process.env.USER_BD, process.env.PASS_BD, {
+    host: process.env.HOST_BD,
     dialect: 'mysql'
 })
 
