@@ -1,7 +1,7 @@
-import express from 'express'
-import helmet from 'helmet'
-import compression from 'compression'
-import cors from 'cors'
+const express = require('express')
+const helmet = require('helmet')
+const compression = require('compression')
+const cors = require('cors')
 
 const app = express()
 
@@ -14,6 +14,6 @@ app.get('/', (_, res) => {
     res.send('Hola backend tienda online')
 })
 
-// app.use("/v1/api", require("./rutas"));
+app.use('/v1/api', require('./rutas'))
 
-export default app
+module.exports = app

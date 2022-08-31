@@ -1,6 +1,5 @@
 {
   "name": "tienda-online",
-  "type": "module",
   "version": "1.0.0",
   "description": "backend de la tienda online para demostrar conocimientos en javascript",
   "main": "index.js",
@@ -21,6 +20,6 @@
     "express": "^4.18.1",
     "helmet": "^6.0.0",
     "mysql2": "^2.3.3",
-    "sequelize": "^6.21.4"
+    "node-cron": "^3.0.2"
   }
 }
