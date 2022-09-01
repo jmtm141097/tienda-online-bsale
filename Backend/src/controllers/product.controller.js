@@ -1,7 +1,7 @@
 const { connection } = require('../utils/conexionBD')
 
-const findProductByID = (req, res) => {
-    connection.query('SELECT * FROM `product` WHERE id = ?', [req.params.id], (err, results) => {
+const productsByCategory = (req, res) => {
+    connection.query('SELECT * FROM `product` WHERE category = ?', [req.params.idCategory], (err, results) => {
         if (!err) {
             if (results.length <= 0) {
                 res.status(400).send({
@@ -44,7 +44,4 @@ const allProducts = async (_, res) => {
     })
 }
 
-module.exports = {
-    findProductByID,
-    allProducts
-}
+module.exports = { productsByCategory, allProducts }
