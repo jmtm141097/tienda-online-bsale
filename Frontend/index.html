@@ -12,6 +12,15 @@
             crossorigin="anonymous"
         />
         <link rel="stylesheet" href="style.css" />
+        <style>
+            .bg-yellow {
+                background-color: yellow;
+            }
+
+            .text-lg {
+                font-size: 2rem;
+            }
+        </style>
     </head>
     <body>
         <div class="container">
@@ -32,26 +41,11 @@
                 </nav>
                 <div class="col-md-4">
                     <h2 class="text-center py-3">Categorias</h2>
-                    <ul class="list-group">
-                        <li class="list-group-item list-group-item-action" aria-current="true">An active item</li>
-                    </ul>
+                    <div id="categorias"></div>
                 </div>
                 <div class="col-md-8">
-                    <h2 class="text-center py-3">Productos</h2>
-                    <div class="row row-cols-1 row-cols-md-3 g-4">
-                        <div class="col">
-                            <div class="card h-100">
-                                <img src="..." class="card-img-top" alt="..." />
-                                <div class="card-body">
-                                    <h5 class="card-title">Card title</h5>
-                                    <p class="card-text">
-                                        This is a longer card with supporting text below as a natural lead-in to
-                                        additional content. This content is a little bit longer.
-                                    </p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+                    <h2 class="text-center py-3" id="title">Todos los productos</h2>
+                    <div class="row row-cols-1 row-cols-md-3 g-4" id="products"></div>
                 </div>
             </div>
         </div>
