@@ -6,7 +6,7 @@ const productsByCategory = (req, res) => {
             if (results.length <= 0) {
                 res.status(400).send({
                     status: 'error',
-                    message: 'No existe el producto consultado'
+                    message: 'No existen productos para la categoria que acabas de consultar'
                 })
                 return
             }
@@ -44,4 +44,26 @@ const allProducts = async (_, res) => {
     })
 }
 
-module.exports = { productsByCategory, allProducts }
+const productsByName = async (req, res) => {
+    connection.query(`SELECT * FROM product WHERE name LIKE '%${req.query.product}%'`, (err, results) => {
+        if (!err) {
+            if (results.length <= 0) {
+                res.status(400).send({
+                    status: 'error',
+                    message: `No hay productos para la busqueda: ${req.query.product}`
+                })
+                return
+            }
+            res.send(results)
+            return
+        }
+
+        res.status(400).send({
+            status: 'error',
+            message: 'Ocurrio un error en la base de datos',
+            err
+        })
+    })
+}
+
+module.exports = { productsByCategory, allProducts, productsByName }

@@ -1,4 +1,4 @@
-const API_URL_CATEGORIES = 'http://localhost:3001/v1/api/'
+const API_URL_CATEGORIES = 'http://localhost:3001/v1/api'
 const HTMLCategories = document.querySelector('#categorias')
 const HTMLProducts = document.querySelector('#products')
 
@@ -6,32 +6,63 @@ document.addEventListener('DOMContentLoaded', () => {
     fetch(`${API_URL_CATEGORIES}/categories`)
         .then((response) => response.json())
         .then((categories) => {
+            if (categories?.status === 'error') {
+                errorMensaje(products?.message)
+                return
+            }
             armarCategorias(categories)
         })
 
     fetch(`${API_URL_CATEGORIES}/products`)
         .then((response) => response.json())
         .then((products) => {
+            if (products?.status === 'error') {
+                errorMensaje(products?.message)
+                return
+            }
             armarProductos(products)
         })
 })
+
+const buscarPorNombre = () => {
+    const valorBuscado = document.getElementById('buscador').value
+    if (valorBuscado === '') {
+        errorMensaje('No puedes hacer una busqueda con el campo vacio')
+        return
+    }
+    fetch(`${API_URL_CATEGORIES}/products/byName?product=${valorBuscado}`)
+        .then((response) => response.json())
+        .then((products) => {
+            if (products?.status === 'error') {
+                errorMensaje(products?.message)
+                return
+            }
+            desSelectCategory()
+            document.getElementById('title').innerText = `Resultados de la busqueda: ${valorBuscado}`
+            armarProductos(products)
+        })
+}
 
 const filtrarPorCategoria = (id, name) => {
     fetch(`${API_URL_CATEGORIES}/products/${id}`)
         .then((response) => response.json())
         .then((products) => {
-            selectCategory(id)
+            if (products?.status === 'error') {
+                errorMensaje(products?.message)
+                return
+            }
+            desSelectCategory()
+            document.getElementById(`category${id}`).classList.add('active')
             document.getElementById('title').innerText = `Productos de la categoria ${name}`
             armarProductos(products)
         })
 }
 
-const selectCategory = (id) => {
+const desSelectCategory = () => {
     const elems = document.querySelectorAll('.active')
     ;[].forEach.call(elems, function (el) {
         el.classList.remove('active')
     })
-    document.getElementById(`category${id}`).classList.add('active')
 }
 
 const armarCategorias = (categories) => {
@@ -67,4 +98,13 @@ const armarProductos = (products) => {
         ''
     )
     HTMLProducts.innerHTML = `${cardProduct}`
+}
+
+const errorMensaje = (mensaje) => {
+    Swal.fire({
+        title: 'Error!',
+        text: mensaje,
+        icon: 'error',
+        confirmButtonText: 'Cerrar'
+    })
 }
